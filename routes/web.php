@@ -25,7 +25,7 @@ Route::get('/alunos', function() {
         "João Pedro"
     );
 
-    $total = sizeof($dados, 0);
+    $total = count($dados);
 
     $alunos = "<ul>";
 
