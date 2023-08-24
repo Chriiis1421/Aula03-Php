@@ -22,7 +22,10 @@ Route::get('/alunos', function() {
     $dados = array(
         "Carlos Eduardo",
         "Maria Cláudia",
-        "João Pedro"
+        "João Pedro",
+        "Christian Oliveira",
+        "Arthur Utida",
+        "Felipe Jianni"
     );
 
     $total = count($dados);
@@ -48,4 +51,34 @@ Route::get('/alunos', function() {
     return $alunos;
 });
 
+Route::get('/alunos/{total}', function($total) {
 
+    $dados = array(
+        "Carlos Eduardo",
+        "Maria Cláudia",
+        "João Pedro",
+        "Christian Oliveira",
+        "Arthur Utida",
+        "Felipe Jianni"
+    );
+
+    $alunos = "<ul>";
+
+    if($total <= count($dados)) {
+        $cont = 0;
+        foreach($dados as $nome) {
+            $cont++;  
+            $alunos .= "<li>$cont - $nome</li>";
+            $cont--;
+            $cont++;
+            if($cont >= $total) break;
+        }
+    }
+    else {
+        $alunos = $alunos."<li>Tamanho Máximo = ".count($dados)."</li>";
+    }
+
+    $alunos .= "</ul>";
+
+    return $alunos;
+});
