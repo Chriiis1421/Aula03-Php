@@ -51,7 +51,7 @@ Route::get('/alunos', function() {
     return $alunos;
 });
 
-Route::get('/alunos/{total}', function($total) {
+Route::get('/alunos/limite/{total}', function($total) {
 
     $dados = array(
         "Carlos Eduardo",
@@ -81,4 +81,40 @@ Route::get('/alunos/{total}', function($total) {
     $alunos .= "</ul>";
 
     return $alunos;
+});
+
+Route::get('/alunos/matricula/{numero}', function($numero) {
+
+    $dados = array(
+        1 => "Carlos Eduardo",
+        2 => "Maria Cláudia",
+        3 => "João Pedro",
+        4 => "Christian Oliveira",
+        5 => "Arthur Utida",
+        6 => "Felipe Jianni"
+    );
+
+    if(count($dados) >= $numero) {
+        return "<li>$numero - $dados[$numero]</li>";
+    }
+
+    return "Não encontrado!!";
+});
+
+Route::get('/alunos/nome/{nome}', function($nome) {
+
+    $dados = array(
+        1 => "Carlos Eduardo",
+        2 => "Maria Cláudia",
+        3 => "João Pedro",
+        4 => "Christian Oliveira",
+        5 => "Arthur Utida",
+        6 => "Felipe Jianni"
+    );
+
+    if(count($dados) >= $nome) {
+        return "<li>$numero - $dados[$nome]</li>";
+    }
+
+    return "Não encontrado!!";
 });
