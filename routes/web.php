@@ -13,9 +13,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Route::get('/', function () {
-//    return view('welcome');
-// });
+Route::get('/', function () {
+    return view('welcome');
+});
 
 Route::get('/alunos', function() {
 
@@ -98,7 +98,7 @@ Route::get('/alunos/matricula/{numero}', function($numero) {
         return "<li>$numero - $dados[$numero]</li>";
     }
 
-    return "Não encontrado!!";
+    return "NÂO ENCONTRADO!!";
 });
 
 Route::get('/alunos/nome/{nome}', function($nome) {
@@ -112,9 +112,59 @@ Route::get('/alunos/nome/{nome}', function($nome) {
         6 => "Felipe Jianni"
     );
 
-    if(count($dados) >= $nome) {
-        return "<li>$numero - $dados[$nome]</li>";
+    if(array_search($nome, $dados)) {
+        $numero = array_search($nome, $dados);
+        return "<li>$numero - $nome</li>";
+    } 
+
+    return "NÂO ENCONTRADO!!";
+});
+
+Route::get('/nota', function() {
+
+    $dados = array(
+        array("matricula" => 1, "aluno" => "Maria Cláudia", "nota" => 2),
+        array("matricula" => 2, "aluno" => "João Pedro", "nota" => 6),
+        array("matricula" => 3, "aluno" => "Carlos Eduardo", "nota" => 9),
+        array("matricula" => 4, "aluno" => "Christian Oliveira", "nota" => 10),
+        array("matricula" => 5, "aluno" => "Arthur Utida", "nota" => 10),
+        array("matricula" => 6, "aluno" => "Felipe Jianni", "nota" => 10),
+    );
+
+
+    foreach($dados as $item) {
+        echo $item['matricula']." ".$item['aluno']." ".$item['nota']."<br>";
+    }
+    
+});
+
+Route::get('/nota/limite/{total}', function($total) {
+
+    $dados = array(
+        array("matricula" => 1, "aluno" => "Maria Cláudia", "nota" => 2),
+        array("matricula" => 2, "aluno" => "João Pedro", "nota" => 6),
+        array("matricula" => 3, "aluno" => "Carlos Eduardo", "nota" => 9),
+        array("matricula" => 4, "aluno" => "Christian Oliveira", "nota" => 10),
+        array("matricula" => 5, "aluno" => "Arthur Utida", "nota" => 10),
+        array("matricula" => 6, "aluno" => "Felipe Jianni", "nota" => 10),
+    );
+
+    $alunos = "<ul>";
+
+    if($total <= count($dados)) {
+        $cont = 0;
+        foreach($dados as $item) {
+            echo $item['matricula']." ".$item['aluno']." ".$item['nota']."<br>";
+            $cont++;
+            if($cont >= $total) break;
+        }
+    }
+    else {
+        $alunos = $alunos."<li>Tamanho Máximo = ".count($dados)."</li>";
     }
 
-    return "Não encontrado!!";
+    $alunos .= "</ul>";
+
+    return $alunos;
 });
+
